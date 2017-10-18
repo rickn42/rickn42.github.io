@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Welcome to Rick&#39;s Garage on Rickn42 Garage</title>
+    <link>//rickn42.github.io/</link>
+    <description>Recent content in Welcome to Rick&#39;s Garage on Rickn42 Garage</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Tue, 17 Oct 2017 21:19:52 +0900</lastBuildDate>
+    
+	<atom:link href="//rickn42.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rick and Morty</title>
+      <link>//rickn42.github.io/blog/rick-and-morty/</link>
+      <pubDate>Tue, 17 Oct 2017 21:33:28 +0900</pubDate>
+      
+      <guid>//rickn42.github.io/blog/rick-and-morty/</guid>
+      <description>최근에 발견한 약빤(?) 애니메이션
+이지미는 백투더퓨처 같은 느낌이지만, 더 어둡고, 더 사이언틱스럽다.
+클론, 평행우주, 뇌조종부터 주변의 가족간 트러블까지 다루는데 이렇게까지 삐뚤어진 상황을 이정도로 웃기게 그려내는데 감탄스럽다 정말 ㅋㅋㅋ</description>
+    </item>
+    
+  </channel>
+</rss>
