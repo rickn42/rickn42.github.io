@@ -38,5 +38,24 @@
 넌 좋은쪽이니 나쁜쪽이니?</description>
     </item>
     
+    <item>
+      <title>Test First Please</title>
+      <link>//rickn42.github.io/blog/test_first/</link>
+      <pubDate>Sun, 29 Oct 2017 14:20:59 +0900</pubDate>
+      
+      <guid>//rickn42.github.io/blog/test_first/</guid>
+      <description>Test First Please? TDD 에 관해 이것저것 많이 알아보고 책도 읽어보고 연습 프로젝트도 했었다.
+그럼에도 잘 안되는 것이 있다.
+Do test first please&amp;hellip;?
+코딩하다보면 자꾸 코드 수정부터 하고 뒤늦게 테스트 코드를 작성한다.
+그리고 불편하게 커밋을 오가면서;;
+예전 코드에서 실패하는지 확인하고,
+수정된 코드가 통과하는지 살펴본다.
+몸이 고생한다. ㅜㅜ;
+습관을 들이기 위한 노오력 이 부족한 듯.
+노오력이 필요한 TDD  실패하는 테스트를 작성하자. - 나의 코딩이 유의미한 짓이였음을 확인하기 위해
+ 개발 보폭을 줄이는 것도 실력이다.</description>
+    </item>
+    
   </channel>
 </rss>
