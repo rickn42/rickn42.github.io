@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/img/r.ico" type="image/x-icon" />
 <link rel="icon" href="/img/r.ico" type="image/x-icon" />
-    <title>About :: Rickn42 Garage</title>
+    <title>Capslock to Ctrl :: Rickn42 Garage</title>
     
     
     <link href="/css/nucleus.css?1512118220" rel="stylesheet">
@@ -32,7 +32,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/about/">
+  <body class="" data-url="/blog/capslock-to-ctrl/">
     <nav id="sidebar" class="">
 
 
@@ -99,8 +99,8 @@
   
     
     <li data-nav-id="/about/" title="About" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/about/">
@@ -121,7 +121,7 @@
   
     
     <li data-nav-id="/blog/" title="Blog" class="dd-item 
-        
+        parent
         
         
         ">
@@ -183,7 +183,7 @@
  
   
     
-      <li data-nav-id="/blog/capslock-to-ctrl/" title="Capslock to Ctrl" class="dd-item ">
+      <li data-nav-id="/blog/capslock-to-ctrl/" title="Capslock to Ctrl" class="dd-item active">
         <a href="/blog/capslock-to-ctrl/">
         Capslock to Ctrl
         
@@ -293,6 +293,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
                   <span class="links">
                     
           
@@ -301,7 +303,13 @@
             
           
           
-            <a href='/'>Welcome to Rick's Garage</a> > About
+            
+            
+          
+          
+            <a href='/'>Welcome to Rick's Garage</a> > <a href='/blog/'>Blog</a> > Capslock to Ctrl
+          
+         
           
          
           
@@ -309,14 +317,34 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#windows-capslock-to-ctrl">windows capslock to ctrl</a>
+<ul>
+<li><a href="#via-powershell">via powershell</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
 
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>Capslock to Ctrl</h1>
           
 
         
@@ -324,21 +352,34 @@
 
 
 
-<p><img src="/img/rickandmorty/garage1.jpg" alt="garage" /></p>
+<h3 id="windows-capslock-to-ctrl">windows capslock to ctrl</h3>
 
-<h3 id="programmer">Programmer</h3>
+<p>regedit 으로 레지스터 편집기에 들어가서</p>
 
-<h3 id="i-like-go-vue">I like Go, Vue.</h3>
+<p>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout] 에서</p>
 
-<h3 id="rickn42morty-gmail-com">rickn42morty@gmail.com</h3>
+<p>바이너리값 새로만들기로 <code>Scancode Map</code> 을 추가해서 아래와 같은 이진값을 넣는다.</p>
+
+<p>그리고 재시작.</p>
+
+<pre><code>&quot;Scancode Map&quot;=hex:00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00
+</code></pre>
+
+<h4 id="via-powershell">via powershell</h4>
+
+<pre><code class="language-powershell">$hexified = &quot;00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00&quot;.Split(',') | % { &quot;0x$_&quot;};
+
+$kbLayout = 'HKLM:\System\CurrentControlSet\Control\Keyboard Layout';
+
+New-ItemProperty -Path $kbLayout -Name &quot;Scancode Map&quot; -PropertyType Binary -Value ([byte[]]$hexified);
+</code></pre>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
       </div>
@@ -387,7 +428,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -404,8 +444,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -420,21 +458,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
-            
-            
-                
+                        
                     
                 
                 
@@ -468,6 +493,26 @@
             
                 
                     
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
                 
                 
 
@@ -521,10 +566,10 @@
 
 
         
-            <a class="nav nav-prev" href="/golang/" title="Golang"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/blog/ssh-key/" title="Ssh Key"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/blog/" title="Blog" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/blog/cygwin-font/" title="Cygwin Font" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -554,3 +599,4 @@
 
   </body>
 </html>
+

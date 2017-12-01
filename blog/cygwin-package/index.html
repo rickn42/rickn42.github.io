@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/img/r.ico" type="image/x-icon" />
 <link rel="icon" href="/img/r.ico" type="image/x-icon" />
-    <title>About :: Rickn42 Garage</title>
+    <title>Cygwin Package :: Rickn42 Garage</title>
     
     
     <link href="/css/nucleus.css?1512118220" rel="stylesheet">
@@ -32,7 +32,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/about/">
+  <body class="" data-url="/blog/cygwin-package/">
     <nav id="sidebar" class="">
 
 
@@ -99,8 +99,8 @@
   
     
     <li data-nav-id="/about/" title="About" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/about/">
@@ -121,7 +121,7 @@
   
     
     <li data-nav-id="/blog/" title="Blog" class="dd-item 
-        
+        parent
         
         
         ">
@@ -240,7 +240,7 @@
  
   
     
-      <li data-nav-id="/blog/cygwin-package/" title="Cygwin Package" class="dd-item ">
+      <li data-nav-id="/blog/cygwin-package/" title="Cygwin Package" class="dd-item active">
         <a href="/blog/cygwin-package/">
         Cygwin Package
         
@@ -293,6 +293,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
                   <span class="links">
                     
           
@@ -301,7 +303,13 @@
             
           
           
-            <a href='/'>Welcome to Rick's Garage</a> > About
+            
+            
+          
+          
+            <a href='/'>Welcome to Rick's Garage</a> > <a href='/blog/'>Blog</a> > Cygwin Package
+          
+         
           
          
           
@@ -309,14 +317,31 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#cygwin-package-install">Cygwin package install</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
 
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>Cygwin Package</h1>
           
 
         
@@ -324,21 +349,42 @@
 
 
 
-<p><img src="/img/rickandmorty/garage1.jpg" alt="garage" /></p>
+<h3 id="cygwin-package-install">Cygwin package install</h3>
 
-<h3 id="programmer">Programmer</h3>
+<p>기본적으로 cygwin installer 설치할때 패키지 설정에서 설치하고자 하는 패키지를 선택하면 설치가 된다.</p>
 
-<h3 id="i-like-go-vue">I like Go, Vue.</h3>
+<p>문제는 추가로 패키지를 설치하고 싶을때 다시 인스톨러 실행을 시켜야 한다는 점이 불편하다.</p>
 
-<h3 id="rickn42morty-gmail-com">rickn42morty@gmail.com</h3>
+<p>찾아보니 <code>apt-cyg</code> 를 설치하면 우분투의 <code>apt-get</code> 처럼 사용이 가능하다.</p>
+
+<p>(<a href="https://github.com/transcode-open/apt-cyg">https://github.com/transcode-open/apt-cyg</a>)</p>
+
+<p>설치와 사용방법은 아래처럼 간단하다.</p>
+
+<pre><code>lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg &gt; apt-cyg
+install apt-cyg /bin
+
+apt-cyg install nano
+</code></pre>
+
+<p>단, Cygwin 설치할때 필요한 <code>lynx</code> 패키지 설치가 필요하다.</p>
+
+<p>그밖에 추천 패키지</p>
+
+<ul>
+<li>bash-completion</li>
+<li>wget, curl</li>
+<li>vim</li>
+<li>git, git-svn</li>
+<li>rxvt-unicode (better console)</li>
+</ul>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
       </div>
@@ -387,7 +433,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -404,8 +449,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -420,21 +463,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
-            
-            
-                
+                        
                     
                 
                 
@@ -511,6 +541,23 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -521,10 +568,10 @@
 
 
         
-            <a class="nav nav-prev" href="/golang/" title="Golang"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/blog/private-dns-server/" title="Private Dns Server"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/blog/" title="Blog" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/blog/rick-and-morty/" title="Rick and Morty" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -554,3 +601,4 @@
 
   </body>
 </html>
+

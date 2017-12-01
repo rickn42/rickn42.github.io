@@ -22,5 +22,67 @@
 클론, 평행우주, 뇌조종부터 주변의 가족간 트러블까지 다루는데 이렇게까지 삐뚤어진 상황을 이정도로 웃기게 그려내는데 감탄스럽다 정말 ㅋㅋㅋ</description>
     </item>
     
+    <item>
+      <title>Ssh Key</title>
+      <link>//rickn42.github.io/blog/ssh-key/</link>
+      <pubDate>Mon, 20 Nov 2017 09:57:02 +0900</pubDate>
+      
+      <guid>//rickn42.github.io/blog/ssh-key/</guid>
+      <description>ssh keygen $ ssh-keygen $ cat ~/.ssh/id_rsa.pub  ssh key add $ eval $(ssh-agent -s) $ ssh-add ~/.ssh/id_rsa  check ssh to github.com $ ssh -T git@githbu.com  add public key to github Github 의 내 settings 페이지로 들어가서
+SSH and GPG keys 탭에 들어가면 new ssh key 버튼이 있다.
+새로 만들기에 id_ras.pub 내용을 복붙하면 된다.</description>
+    </item>
+    
+    <item>
+      <title>Capslock to Ctrl</title>
+      <link>//rickn42.github.io/blog/capslock-to-ctrl/</link>
+      <pubDate>Mon, 20 Nov 2017 10:10:19 +0900</pubDate>
+      
+      <guid>//rickn42.github.io/blog/capslock-to-ctrl/</guid>
+      <description> windows capslock to ctrl regedit 으로 레지스터 편집기에 들어가서
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout] 에서
+바이너리값 새로만들기로 Scancode Map 을 추가해서 아래와 같은 이진값을 넣는다.
+그리고 재시작.
+&amp;quot;Scancode Map&amp;quot;=hex:00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00  via powershell $hexified = &amp;quot;00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00&amp;quot;.Split(&#39;,&#39;) | % { &amp;quot;0x$_&amp;quot;}; $kbLayout = &#39;HKLM:\System\CurrentControlSet\Control\Keyboard Layout&#39;; New-ItemProperty -Path $kbLayout -Name &amp;quot;Scancode Map&amp;quot; -PropertyType Binary -Value ([byte[]]$hexified);  </description>
+    </item>
+    
+    <item>
+      <title>Cygwin Font</title>
+      <link>//rickn42.github.io/blog/cygwin-font/</link>
+      <pubDate>Mon, 20 Nov 2017 10:32:52 +0900</pubDate>
+      
+      <guid>//rickn42.github.io/blog/cygwin-font/</guid>
+      <description>cygwin 폰트 설정 기본이 UTF-8 로 되어있어서 윈도우에서 가져오는 한글이 깨진다.
+ex)
+$ ipconfig Windows IP ▒▒▒▒ ▒̴▒▒▒ ▒▒▒▒▒ vEthernet (nat): ▒▒▒Ằ DNS ▒▒▒̻▒. . . . : ▒▒ũ-▒▒▒▒ IPv6 ▒ּ▒ . . . . : ... IPv4 ▒ּ▒ . . . . . . . . . : ... ▒▒▒▒▒ ▒▒▒▒ũ . . . . . . . : ... ▒⺻ ▒▒▒▒Ʈ▒▒▒▒ . . . . . . :  options -&amp;gt; Text 설정으로 가서 아래처럼 바꾸면 된다.</description>
+    </item>
+    
+    <item>
+      <title>Private Dns Server</title>
+      <link>//rickn42.github.io/blog/private-dns-server/</link>
+      <pubDate>Tue, 28 Nov 2017 15:19:56 +0900</pubDate>
+      
+      <guid>//rickn42.github.io/blog/private-dns-server/</guid>
+      <description>사설 dns 서버 구축 ref doc http://html5around.com/wordpress/tutorials/ubuntu-bind9-local-dns-setup/
+예) 아래 설정으로 dns 를 구축해보자.
+도메인 zoo.local ip 192.168.0.77  우분투 BIND9 설치 $ sudo apt-get install bind9  /etc/hosts 127.0.0.1 zoo.local localhost # 원하는 내부 도메인명 등록 127.0.0.1 intranet # 내부 호스트명, intranet.zoo.local 방식으로 접속하게 됨  /etc/network/interfaces auto lo iface lo inet loopback auto eth0 iface eth0 inet static address 192.168.0.77 netmask 255.255.255.0 network 192.168.0.0 broadcast 192.168.0.255 gateway 192.168.0.1 dns-nameserver 127.</description>
+    </item>
+    
+    <item>
+      <title>Cygwin Package</title>
+      <link>//rickn42.github.io/blog/cygwin-package/</link>
+      <pubDate>Fri, 01 Dec 2017 17:31:32 +0900</pubDate>
+      
+      <guid>//rickn42.github.io/blog/cygwin-package/</guid>
+      <description> Cygwin package install 기본적으로 cygwin installer 설치할때 패키지 설정에서 설치하고자 하는 패키지를 선택하면 설치가 된다.
+문제는 추가로 패키지를 설치하고 싶을때 다시 인스톨러 실행을 시켜야 한다는 점이 불편하다.
+찾아보니 apt-cyg 를 설치하면 우분투의 apt-get 처럼 사용이 가능하다.
+(https://github.com/transcode-open/apt-cyg)
+설치와 사용방법은 아래처럼 간단하다.
+lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg &amp;gt; apt-cyg install apt-cyg /bin apt-cyg install nano  단, Cygwin 설치할때 필요한 lynx 패키지 설치가 필요하다.
+그밖에 추천 패키지
+ bash-completion wget, curl vim git, git-svn rxvt-unicode (better console)  </description>
+    </item>
+    
   </channel>
 </rss>

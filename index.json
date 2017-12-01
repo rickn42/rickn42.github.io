@@ -21,6 +21,41 @@
 	"content": " Rickn42\u0026rsquo;s Garage. "
 },
 {
+	"uri": "//rickn42.github.io/blog/ssh-key/",
+	"title": "Ssh Key",
+	"tags": [],
+	"description": "",
+	"content": " ssh keygen $ ssh-keygen $ cat ~/.ssh/id_rsa.pub  ssh key add $ eval $(ssh-agent -s) $ ssh-add ~/.ssh/id_rsa  check ssh to github.com $ ssh -T git@githbu.com  add public key to github Github 의 내 settings 페이지로 들어가서\nSSH and GPG keys 탭에 들어가면 new ssh key 버튼이 있다.\n새로 만들기에 id_ras.pub 내용을 복붙하면 된다.\n"
+},
+{
+	"uri": "//rickn42.github.io/blog/capslock-to-ctrl/",
+	"title": "Capslock to Ctrl",
+	"tags": [],
+	"description": "",
+	"content": " windows capslock to ctrl regedit 으로 레지스터 편집기에 들어가서\n[HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Keyboard Layout] 에서\n바이너리값 새로만들기로 Scancode Map 을 추가해서 아래와 같은 이진값을 넣는다.\n그리고 재시작.\n\u0026quot;Scancode Map\u0026quot;=hex:00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00  via powershell $hexified = \u0026quot;00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00\u0026quot;.Split(',') | % { \u0026quot;0x$_\u0026quot;}; $kbLayout = 'HKLM:\\System\\CurrentControlSet\\Control\\Keyboard Layout'; New-ItemProperty -Path $kbLayout -Name \u0026quot;Scancode Map\u0026quot; -PropertyType Binary -Value ([byte[]]$hexified);  "
+},
+{
+	"uri": "//rickn42.github.io/blog/cygwin-font/",
+	"title": "Cygwin Font",
+	"tags": [],
+	"description": "",
+	"content": " cygwin 폰트 설정 기본이 UTF-8 로 되어있어서 윈도우에서 가져오는 한글이 깨진다.\nex)\n$ ipconfig Windows IP ▒▒▒▒ ▒̴▒▒▒ ▒▒▒▒▒ vEthernet (nat): ▒▒▒Ằ DNS ▒▒▒̻▒. . . . : ▒▒ũ-▒▒▒▒ IPv6 ▒ּ▒ . . . . : ... IPv4 ▒ּ▒ . . . . . . . . . : ... ▒▒▒▒▒ ▒▒▒▒ũ . . . . . . . : ... ▒⺻ ▒▒▒▒Ʈ▒▒▒▒ . . . . . . :  options -\u0026gt; Text 설정으로 가서 아래처럼 바꾸면 된다.\nLocale = ko_KR Character set = eucKR  $ ipconfig Windows IP 구성 이더넷 어댑터 vEthernet (nat): 연결별 DNS 접미사. . . . : 링크-로컬 IPv6 주소 . . . . : ... IPv4 주소 . . . . . . . . . : ... 서브넷 마스크 . . . . . . . : ... 기본 게이트웨이 . . . . . . :  "
+},
+{
+	"uri": "//rickn42.github.io/blog/private-dns-server/",
+	"title": "Private Dns Server",
+	"tags": [],
+	"description": "",
+	"content": " 사설 dns 서버 구축 ref doc http://html5around.com/wordpress/tutorials/ubuntu-bind9-local-dns-setup/\n예) 아래 설정으로 dns 를 구축해보자.\n도메인 zoo.local ip 192.168.0.77  우분투 BIND9 설치 $ sudo apt-get install bind9  /etc/hosts 127.0.0.1 zoo.local localhost # 원하는 내부 도메인명 등록 127.0.0.1 intranet # 내부 호스트명, intranet.zoo.local 방식으로 접속하게 됨  /etc/network/interfaces auto lo iface lo inet loopback auto eth0 iface eth0 inet static address 192.168.0.77 netmask 255.255.255.0 network 192.168.0.0 broadcast 192.168.0.255 gateway 192.168.0.1 dns-nameserver 127.0.0.1 # 이 컴퓨터가 네임서버임을 의미 dns-search zoo.local # 검색시 zoo.local은 생략 dns-domain zoo.local # 내부 도메인 설정. 즉 intranet.zoo.local을 intranet만 쓰면 접속되도록 함.  랜카드 재로딩 $ sudo ifdown eth0; ifup eth0  /etc/bind/named.conf.options 설정 options { //.... // 내부 도메인이 없는 경우 외부 dns 로 연결 forwarders { // google dns 8.8.8.8; 8.8.4.4; }; //.... };  /etc/bind/named.conf.local 에 로컬 존 정보 추가하기 zone \u0026quot;zoo.local\u0026quot; IN { type master; file \u0026quot;/etc/bind/zones/zoo.local.db\u0026quot;; // 정방향 정보 }; zone \u0026quot;0.168.192.in-addr.arpa\u0026quot; { type master; file \u0026quot;/etc/bind/zones/rev.0.168.192.in-addr.arpa\u0026quot;; // 역방향 정보 };  /etc/bind/zones/zoo.local.db 파일 생성 (정방향 정보) 작성하기 편하기 위해 db.local 을 템플릿으로 이용하자.\n$ mkdir /etc/bind/zones $ cp /etc/bind/db.local /etc/bind/zones/zoo.local.db  ; ; BIND data file for local loopback interface ; $ORIGIN . $TTL 604800 zoo.local. IN SOA intranet.zoo.local. master.zoo.local. ( 10 ; Serial 604800 ; Refresh 86400 ; Retry 2419200 ; Expire 604800 ) ; Negative Cache TTL ; zoo.local. IN NS intranet.zoo.local. zoo.local. IN A 192.168.0.77 ;zoo.local. IN MX mail.zoo.local. $ORIGIN zoo.local. localhost IN A 127.0.0.1 gateway IN A 192.168.0.1 // 네임 서버 intranet IN A 192.168.0.77 // 로컬 서버 도메인 monkey IN A 192.168.0.81 dog IN A 192.168.0.82 cat IN A 192.168.0.83 ...  /etc/bind/zones/rev.0.168.192.in-addr.arpa 파일 생성 (역방향 정보) ; ; BIND reverse data file for broadcast zone ; $TTL 604800 @ IN SOA intranet.zoo.local. master.zoo.local. ( 14 ; Serial 604800 ; Refresh 86400 ; Retry 2419200 ; Expire 604800 ) ; Negative Cache TTL ; @ IN NS intranet.zoo.local. 1 IN PTR gateway.zoo.local. // 네임 서버 77 IN PTR intranet.zoo.local. // 기타 내부 서버 도메인 81 IN PTR monkey.zoo.local. 82 IN PTR dog.zoo.local. 83 IN PTR cat.zoo.local. ...  실행 확인 $ cd /etc/bind $ named-checkconf named.conf.local $ cd /etc/bind/zones $ named-checkzone zoo.local zoo.local.db $ sudo service bind9 restart $ host -l zoo.local $ host 192.168.0.77 $ nslookup zoo.local $ dig cat.zoo.local  "
+},
+{
+	"uri": "//rickn42.github.io/blog/cygwin-package/",
+	"title": "Cygwin Package",
+	"tags": [],
+	"description": "",
+	"content": " Cygwin package install 기본적으로 cygwin installer 설치할때 패키지 설정에서 설치하고자 하는 패키지를 선택하면 설치가 된다.\n문제는 추가로 패키지를 설치하고 싶을때 다시 인스톨러 실행을 시켜야 한다는 점이 불편하다.\n찾아보니 apt-cyg 를 설치하면 우분투의 apt-get 처럼 사용이 가능하다.\n(https://github.com/transcode-open/apt-cyg)\n설치와 사용방법은 아래처럼 간단하다.\nlynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg \u0026gt; apt-cyg install apt-cyg /bin apt-cyg install nano  단, Cygwin 설치할때 필요한 lynx 패키지 설치가 필요하다.\n그밖에 추천 패키지\n bash-completion wget, curl vim git, git-svn rxvt-unicode (better console)  "
+},
+{
 	"uri": "//rickn42.github.io/about/",
 	"title": "About",
 	"tags": [],

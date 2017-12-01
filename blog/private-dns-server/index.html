@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/img/r.ico" type="image/x-icon" />
 <link rel="icon" href="/img/r.ico" type="image/x-icon" />
-    <title>About :: Rickn42 Garage</title>
+    <title>Private Dns Server :: Rickn42 Garage</title>
     
     
     <link href="/css/nucleus.css?1512118220" rel="stylesheet">
@@ -32,7 +32,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/about/">
+  <body class="" data-url="/blog/private-dns-server/">
     <nav id="sidebar" class="">
 
 
@@ -99,8 +99,8 @@
   
     
     <li data-nav-id="/about/" title="About" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/about/">
@@ -121,7 +121,7 @@
   
     
     <li data-nav-id="/blog/" title="Blog" class="dd-item 
-        
+        parent
         
         
         ">
@@ -221,7 +221,7 @@
  
   
     
-      <li data-nav-id="/blog/private-dns-server/" title="Private Dns Server" class="dd-item ">
+      <li data-nav-id="/blog/private-dns-server/" title="Private Dns Server" class="dd-item active">
         <a href="/blog/private-dns-server/">
         Private Dns Server
         
@@ -293,6 +293,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
                   <span class="links">
                     
           
@@ -301,7 +303,13 @@
             
           
           
-            <a href='/'>Welcome to Rick's Garage</a> > About
+            
+            
+          
+          
+            <a href='/'>Welcome to Rick's Garage</a> > <a href='/blog/'>Blog</a> > Private Dns Server
+          
+         
           
          
           
@@ -309,14 +317,42 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#사설-dns-서버-구축">사설 dns 서버 구축</a>
+<ul>
+<li><a href="#우분투-bind9-설치">우분투 BIND9 설치</a></li>
+<li><a href="#etc-hosts"><code>/etc/hosts</code></a></li>
+<li><a href="#etc-network-interfaces"><code>/etc/network/interfaces</code></a></li>
+<li><a href="#랜카드-재로딩">랜카드 재로딩</a></li>
+<li><a href="#etc-bind-named-conf-options-설정"><code>/etc/bind/named.conf.options</code> 설정</a></li>
+<li><a href="#etc-bind-named-conf-local-에-로컬-존-정보-추가하기"><code>/etc/bind/named.conf.local</code> 에 로컬 존 정보 추가하기</a></li>
+<li><a href="#etc-bind-zones-zoo-local-db-파일-생성-정방향-정보"><code>/etc/bind/zones/zoo.local.db</code> 파일 생성 (정방향 정보)</a></li>
+<li><a href="#etc-bind-zones-rev-0-168-192-in-addr-arpa-파일-생성-역방향-정보"><code>/etc/bind/zones/rev.0.168.192.in-addr.arpa</code> 파일 생성 (역방향 정보)</a></li>
+<li><a href="#실행-확인">실행 확인</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
 
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>Private Dns Server</h1>
           
 
         
@@ -324,21 +360,167 @@
 
 
 
-<p><img src="/img/rickandmorty/garage1.jpg" alt="garage" /></p>
+<h3 id="사설-dns-서버-구축">사설 dns 서버 구축</h3>
 
-<h3 id="programmer">Programmer</h3>
+<p>ref doc
+<a href="http://html5around.com/wordpress/tutorials/ubuntu-bind9-local-dns-setup/">http://html5around.com/wordpress/tutorials/ubuntu-bind9-local-dns-setup/</a></p>
 
-<h3 id="i-like-go-vue">I like Go, Vue.</h3>
+<p>예) 아래 설정으로 dns 를 구축해보자.</p>
 
-<h3 id="rickn42morty-gmail-com">rickn42morty@gmail.com</h3>
+<pre><code class="language-raw">도메인      zoo.local
+ip         192.168.0.77
+</code></pre>
+
+<h4 id="우분투-bind9-설치">우분투 BIND9 설치</h4>
+
+<pre><code class="language-sh">$ sudo apt-get install bind9
+</code></pre>
+
+<h4 id="etc-hosts"><code>/etc/hosts</code></h4>
+
+<pre><code class="language-raw">127.0.0.1 zoo.local  localhost  # 원하는 내부 도메인명 등록
+127.0.0.1 intranet  # 내부 호스트명, intranet.zoo.local 방식으로 접속하게 됨
+</code></pre>
+
+<h4 id="etc-network-interfaces"><code>/etc/network/interfaces</code></h4>
+
+<pre><code class="language-raw">auto lo
+iface lo inet loopback
+ 
+auto eth0
+iface eth0 inet static
+ address 192.168.0.77       
+ netmask 255.255.255.0
+ network 192.168.0.0
+ broadcast 192.168.0.255
+ gateway 192.168.0.1 
+ dns-nameserver 127.0.0.1   # 이 컴퓨터가 네임서버임을 의미
+ dns-search zoo.local       # 검색시 zoo.local은 생략
+ dns-domain zoo.local       # 내부 도메인 설정. 즉 intranet.zoo.local을 intranet만 쓰면 접속되도록 함.
+</code></pre>
+
+<h4 id="랜카드-재로딩">랜카드 재로딩</h4>
+
+<pre><code class="language-bash">$ sudo ifdown eth0; ifup eth0
+</code></pre>
+
+<h4 id="etc-bind-named-conf-options-설정"><code>/etc/bind/named.conf.options</code> 설정</h4>
+
+<pre><code class="language-raw">options {
+ //....
+
+ // 내부 도메인이 없는 경우 외부 dns 로 연결
+ forwarders {
+     // google dns
+     8.8.8.8;
+     8.8.4.4;
+ };
+
+ //....
+};
+</code></pre>
+
+<h4 id="etc-bind-named-conf-local-에-로컬-존-정보-추가하기"><code>/etc/bind/named.conf.local</code> 에 로컬 존 정보 추가하기</h4>
+
+<pre><code class="language-raw">zone &quot;zoo.local&quot; IN {
+    type master;
+    file &quot;/etc/bind/zones/zoo.local.db&quot;; // 정방향 정보
+};
+
+zone &quot;0.168.192.in-addr.arpa&quot; {
+    type master;
+    file &quot;/etc/bind/zones/rev.0.168.192.in-addr.arpa&quot;; // 역방향 정보
+};
+</code></pre>
+
+<h4 id="etc-bind-zones-zoo-local-db-파일-생성-정방향-정보"><code>/etc/bind/zones/zoo.local.db</code> 파일 생성 (정방향 정보)</h4>
+
+<p>작성하기 편하기 위해 db.local 을 템플릿으로 이용하자.</p>
+
+<pre><code class="language-bash">$ mkdir /etc/bind/zones
+$ cp /etc/bind/db.local /etc/bind/zones/zoo.local.db
+</code></pre>
+
+<pre><code class="language-raw">;
+; BIND data file for local loopback interface
+;
+$ORIGIN .
+$TTL 604800
+zoo.local. IN SOA intranet.zoo.local. master.zoo.local. (
+ 10 ; Serial
+ 604800 ; Refresh
+ 86400 ; Retry
+ 2419200 ; Expire
+ 604800 ) ; Negative Cache TTL
+;
+zoo.local. IN NS intranet.zoo.local.
+zoo.local. IN A 192.168.0.77
+;zoo.local. IN MX mail.zoo.local.
+ 
+$ORIGIN zoo.local.
+ 
+localhost IN A 127.0.0.1
+gateway IN A 192.168.0.1
+
+// 네임 서버
+intranet IN A 192.168.0.77
+
+// 로컬 서버 도메인
+monkey IN A 192.168.0.81
+dog IN A 192.168.0.82
+cat IN A 192.168.0.83
+...
+</code></pre>
+
+<h4 id="etc-bind-zones-rev-0-168-192-in-addr-arpa-파일-생성-역방향-정보"><code>/etc/bind/zones/rev.0.168.192.in-addr.arpa</code> 파일 생성 (역방향 정보)</h4>
+
+<pre><code class="language-raw">;
+; BIND reverse data file for broadcast zone
+;
+$TTL 604800
+@ IN SOA intranet.zoo.local. master.zoo.local. (
+ 14 ; Serial
+ 604800 ; Refresh
+ 86400 ; Retry
+ 2419200 ; Expire
+ 604800 ) ; Negative Cache TTL
+;
+@ IN NS intranet.zoo.local.
+1 IN PTR gateway.zoo.local.
+
+// 네임 서버
+77 IN PTR intranet.zoo.local.
+
+// 기타 내부 서버 도메인
+81 IN PTR monkey.zoo.local.
+82 IN PTR dog.zoo.local.
+83 IN PTR cat.zoo.local.
+...
+</code></pre>
+
+<h4 id="실행-확인">실행 확인</h4>
+
+<pre><code class="language-bash">$ cd /etc/bind
+$ named-checkconf named.conf.local
+
+$ cd /etc/bind/zones
+$ named-checkzone zoo.local zoo.local.db
+
+$ sudo service bind9 restart
+
+$ host -l zoo.local
+$ host 192.168.0.77
+$ nslookup zoo.local
+
+$ dig cat.zoo.local 
+</code></pre>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
       </div>
@@ -387,7 +569,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -404,8 +585,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -420,21 +599,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
-            
-            
-                
+                        
                     
                 
                 
@@ -500,6 +666,26 @@
             
                 
                     
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
                 
                 
 
@@ -521,10 +707,10 @@
 
 
         
-            <a class="nav nav-prev" href="/golang/" title="Golang"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/blog/cygwin-font/" title="Cygwin Font"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/blog/" title="Blog" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/blog/cygwin-package/" title="Cygwin Package" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -554,3 +740,4 @@
 
   </body>
 </html>
+

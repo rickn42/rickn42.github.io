@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/img/r.ico" type="image/x-icon" />
 <link rel="icon" href="/img/r.ico" type="image/x-icon" />
-    <title>About :: Rickn42 Garage</title>
+    <title>Cygwin Font :: Rickn42 Garage</title>
     
     
     <link href="/css/nucleus.css?1512118220" rel="stylesheet">
@@ -32,7 +32,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/about/">
+  <body class="" data-url="/blog/cygwin-font/">
     <nav id="sidebar" class="">
 
 
@@ -99,8 +99,8 @@
   
     
     <li data-nav-id="/about/" title="About" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/about/">
@@ -121,7 +121,7 @@
   
     
     <li data-nav-id="/blog/" title="Blog" class="dd-item 
-        
+        parent
         
         
         ">
@@ -202,7 +202,7 @@
  
   
     
-      <li data-nav-id="/blog/cygwin-font/" title="Cygwin Font" class="dd-item ">
+      <li data-nav-id="/blog/cygwin-font/" title="Cygwin Font" class="dd-item active">
         <a href="/blog/cygwin-font/">
         Cygwin Font
         
@@ -293,6 +293,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
                   <span class="links">
                     
           
@@ -301,7 +303,13 @@
             
           
           
-            <a href='/'>Welcome to Rick's Garage</a> > About
+            
+            
+          
+          
+            <a href='/'>Welcome to Rick's Garage</a> > <a href='/blog/'>Blog</a> > Cygwin Font
+          
+         
           
          
           
@@ -309,14 +317,31 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#cygwin-폰트-설정">cygwin 폰트 설정</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
 
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>Cygwin Font</h1>
           
 
         
@@ -324,21 +349,53 @@
 
 
 
-<p><img src="/img/rickandmorty/garage1.jpg" alt="garage" /></p>
+<h3 id="cygwin-폰트-설정">cygwin 폰트 설정</h3>
 
-<h3 id="programmer">Programmer</h3>
+<p>기본이 UTF-8 로 되어있어서 윈도우에서 가져오는 한글이 깨진다.</p>
 
-<h3 id="i-like-go-vue">I like Go, Vue.</h3>
+<p>ex)</p>
 
-<h3 id="rickn42morty-gmail-com">rickn42morty@gmail.com</h3>
+<pre><code class="language-raw">$ ipconfig
+
+Windows IP ▒▒▒▒
+
+
+▒̴▒▒▒ ▒▒▒▒▒ vEthernet (nat):
+
+   ▒▒▒Ằ DNS ▒▒▒̻▒. . . . :
+   ▒▒ũ-▒▒▒▒ IPv6 ▒ּ▒ . . . . : ...
+   IPv4 ▒ּ▒ . . . . . . . . . : ...
+   ▒▒▒▒▒ ▒▒▒▒ũ . . . . . . . : ...
+   ▒⺻ ▒▒▒▒Ʈ▒▒▒▒ . . . . . . :
+
+</code></pre>
+
+<p>options -&gt; Text 설정으로 가서 아래처럼 바꾸면 된다.</p>
+
+<pre><code class="language-raw">Locale = ko_KR
+Character set = eucKR
+</code></pre>
+
+<pre><code class="language-raw">$ ipconfig
+
+Windows IP 구성
+
+
+이더넷 어댑터 vEthernet (nat):
+
+   연결별 DNS 접미사. . . . :
+   링크-로컬 IPv6 주소 . . . . : ...
+   IPv4 주소 . . . . . . . . . : ...
+   서브넷 마스크 . . . . . . . : ...
+   기본 게이트웨이 . . . . . . :
+</code></pre>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
       </div>
@@ -387,7 +444,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -404,8 +460,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -420,21 +474,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
-            
-            
-                
+                        
                     
                 
                 
@@ -484,6 +525,26 @@
             
                 
                     
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
                 
                 
 
@@ -521,10 +582,10 @@
 
 
         
-            <a class="nav nav-prev" href="/golang/" title="Golang"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/blog/capslock-to-ctrl/" title="Capslock to Ctrl"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/blog/" title="Blog" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/blog/private-dns-server/" title="Private Dns Server" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -554,3 +615,4 @@
 
   </body>
 </html>
+

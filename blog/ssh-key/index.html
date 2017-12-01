@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/img/r.ico" type="image/x-icon" />
 <link rel="icon" href="/img/r.ico" type="image/x-icon" />
-    <title>About :: Rickn42 Garage</title>
+    <title>Ssh Key :: Rickn42 Garage</title>
     
     
     <link href="/css/nucleus.css?1512118220" rel="stylesheet">
@@ -32,7 +32,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/about/">
+  <body class="" data-url="/blog/ssh-key/">
     <nav id="sidebar" class="">
 
 
@@ -99,8 +99,8 @@
   
     
     <li data-nav-id="/about/" title="About" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/about/">
@@ -121,7 +121,7 @@
   
     
     <li data-nav-id="/blog/" title="Blog" class="dd-item 
-        
+        parent
         
         
         ">
@@ -164,7 +164,7 @@
  
   
     
-      <li data-nav-id="/blog/ssh-key/" title="Ssh Key" class="dd-item ">
+      <li data-nav-id="/blog/ssh-key/" title="Ssh Key" class="dd-item active">
         <a href="/blog/ssh-key/">
         Ssh Key
         
@@ -293,6 +293,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
                   <span class="links">
                     
           
@@ -301,7 +303,13 @@
             
           
           
-            <a href='/'>Welcome to Rick's Garage</a> > About
+            
+            
+          
+          
+            <a href='/'>Welcome to Rick's Garage</a> > <a href='/blog/'>Blog</a> > Ssh Key
+          
+         
           
          
           
@@ -309,14 +317,34 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#ssh-keygen">ssh keygen</a></li>
+<li><a href="#ssh-key-add">ssh key add</a></li>
+<li><a href="#check-ssh-to-github-com">check ssh to github.com</a></li>
+<li><a href="#add-public-key-to-github">add public key to github</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
 
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>Ssh Key</h1>
           
 
         
@@ -324,21 +352,37 @@
 
 
 
-<p><img src="/img/rickandmorty/garage1.jpg" alt="garage" /></p>
+<h3 id="ssh-keygen">ssh keygen</h3>
 
-<h3 id="programmer">Programmer</h3>
+<pre><code class="language-bash">$ ssh-keygen
+$ cat ~/.ssh/id_rsa.pub
+</code></pre>
 
-<h3 id="i-like-go-vue">I like Go, Vue.</h3>
+<h3 id="ssh-key-add">ssh key add</h3>
 
-<h3 id="rickn42morty-gmail-com">rickn42morty@gmail.com</h3>
+<pre><code class="language-bash">$ eval $(ssh-agent -s)
+$ ssh-add ~/.ssh/id_rsa
+</code></pre>
+
+<h3 id="check-ssh-to-github-com">check ssh to github.com</h3>
+
+<pre><code class="language-bash">$ ssh -T git@githbu.com
+</code></pre>
+
+<h3 id="add-public-key-to-github">add public key to github</h3>
+
+<p>Github 의 내 <code>settings</code> 페이지로 들어가서</p>
+
+<p><code>SSH and GPG keys</code> 탭에 들어가면 new ssh key 버튼이 있다.</p>
+
+<p>새로 만들기에 id_ras.pub 내용을 복붙하면 된다.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
       </div>
@@ -387,6 +431,55 @@
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                     
                 
                 
@@ -406,67 +499,6 @@
                     
                         
                         
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -511,6 +543,22 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -521,10 +569,10 @@
 
 
         
-            <a class="nav nav-prev" href="/golang/" title="Golang"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/blog/rick-and-morty/" title="Rick and Morty"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/blog/" title="Blog" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/blog/capslock-to-ctrl/" title="Capslock to Ctrl" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -554,3 +602,4 @@
 
   </body>
 </html>
+
